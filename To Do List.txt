@@ -1,0 +1,13 @@
+Create new classes:
+	Incoming Payment
+		- Id
+      - Description
+      - Amount
+      - ExpenseId
+      - Status
+      
+	Outgoing Payment
+      - Id
+      - Description
+      - Amount
+      - Status
