@@ -247,28 +247,35 @@ namespace ExpenseManager
             isValid = false;
             input = string.Empty;
 
-            // Date paid
-            while (!isValid)
+            if (eIsPaid)
             {
-                Console.Write("Date Paid: ");
-                input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
+                // Date paid
+                while (!isValid)
                 {
-                    Console.WriteLine(invalid);
-                    Console.ReadLine();
-                }
-                else
-                {
-                    if (DateTime.TryParse(input, out eDatePaid))
-                    {
-                        isValid = true;
-                    }
-                    else
+                    Console.Write("Date Paid: ");
+                    input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
                     {
                         Console.WriteLine(invalid);
                         Console.ReadLine();
                     }
+                    else
+                    {
+                        if (DateTime.TryParse(input, out eDatePaid))
+                        {
+                            isValid = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine(invalid);
+                            Console.ReadLine();
+                        }
+                    }
                 }
+            }
+            else
+            {
+                eDatePaid = new DateTime(9999, 01, 01);
             }
 
             isValid = false;
@@ -369,10 +376,8 @@ namespace ExpenseManager
             bill.ReferenceNo = bRefNo;
 
             AddBill addBill = new AddBill(em);
-            // ### implement this
-            /*       
             addBill.InsertValues(bill);
-             */ 
+
         }
 
         private static void AddNewDebt(ExpenseManager inEM)
@@ -392,7 +397,6 @@ namespace ExpenseManager
             List<GeneralExpense> expenseList = em.GetListGeneralExpense();
             List<Bill> billList = em.GetListBill();
 
-            // ### Code here to help choose expense ids
             // Get Expenses
             Console.WriteLine("Expenses:");
             foreach (GeneralExpense expense in expenseList)
@@ -401,6 +405,7 @@ namespace ExpenseManager
                 expenseIdList.Add(expense.Id);
             }
 
+            // Get Bills
             Console.WriteLine();
             Console.WriteLine("Bills:");
             foreach (Bill bill in billList)
@@ -408,9 +413,7 @@ namespace ExpenseManager
                 Console.WriteLine(bill.GetShortDetails());
                 expenseIdList.Add(bill.Id);
             }
-            Console.WriteLine();
-
-            // Get Bills
+            Console.WriteLine();       
 
             // Get Expense Id
             while (!isValid)
@@ -525,28 +528,35 @@ namespace ExpenseManager
             isValid = false;
             input = string.Empty;
 
-            // Date paid
-            while (!isValid)
+            if (dIsPaid)
             {
-                Console.Write("Date Paid: ");
-                input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
+                // Date paid
+                while (!isValid)
                 {
-                    Console.WriteLine(invalid);
-                    Console.ReadLine();
-                }
-                else
-                {
-                    if (DateTime.TryParse(input, out dDatePaid))
-                    {
-                        isValid = true;
-                    }
-                    else
+                    Console.Write("Date Paid: ");
+                    input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
                     {
                         Console.WriteLine(invalid);
                         Console.ReadLine();
                     }
+                    else
+                    {
+                        if (DateTime.TryParse(input, out dDatePaid))
+                        {
+                            isValid = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine(invalid);
+                            Console.ReadLine();
+                        }
+                    }
                 }
+            }
+            else
+            {
+                dDatePaid = new DateTime(9999, 01, 01);
             }
 
             debt.ExpenseId = dExpenseId;

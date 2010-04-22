@@ -8,7 +8,7 @@ namespace ExpenseManager
     class Bill : GeneralExpense
     {
         #region Properties
-        public int ExpenseId { get; set; }
+        public int BillId { get; set; }
         public string Issuer { get; set; }
         public string ReferenceNo { get; set; }
         #endregion

@@ -60,7 +60,7 @@ namespace ExpenseManager
                         {
                             // Create bill objects
                             Bill bill = new Bill();
-                            bill.Id = dataReader.GetInt32(8); // This is the Id from Bill table
+                            bill.Id = dataReader.GetInt32(0); 
                             bill.Name = dataReader.GetString(1);
                             bill.Description = dataReader.GetString(2);
                             bill.Value = dataReader.GetDouble(3);
@@ -68,7 +68,7 @@ namespace ExpenseManager
                             bill.IsPaid = dataReader.GetBoolean(5);
                             bill.DatePaid = dataReader.IsDBNull(6) ? _dtNullDate : dataReader.GetDateTime(6);
                             bill.IsOutstanding = dataReader.GetBoolean(7);
-                            bill.ExpenseId = dataReader.GetInt32(0);    // This is Id from the General Expense table
+                            bill.BillId = dataReader.GetInt32(8);
                             bill.Issuer = dataReader.GetString(10);
                             bill.ReferenceNo = dataReader.GetString(11);
                             _lstBills.Add(bill);

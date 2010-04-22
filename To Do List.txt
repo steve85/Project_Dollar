@@ -1,4 +1,3 @@
 22/04/2010
 - Allow cancel from any operation by entering ! character.
-- Fix console program so that answering a specific value for a boolean will include exclude specific questions.
-- Finish the add bill code
+- Create an amount outstanding class to link to debts

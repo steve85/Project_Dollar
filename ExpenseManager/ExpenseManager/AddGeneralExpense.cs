@@ -11,6 +11,7 @@ namespace ExpenseManager
     {
         private ExpenseManager expenseManager;
         private static string _connectionString = ConfigurationSettings.AppSettings["connectionString"].ToString();
+        private static string _getIdentity = "SELECT @@IDENTITY";
 
         public AddGeneralExpense(ExpenseManager inExpenseManager)
         {
@@ -24,7 +25,6 @@ namespace ExpenseManager
             int intExpenseId = 0;
             string qryInsertExpense = @"INSERT INTO GeneralExpense ([Name] ,[Description] ,[Value] ,[DateReceived] ,[IsPaid] ,[DatePaid] ,[IsOutstanding]) 
                                     VALUES (@Name, @Description, @Value, @DateReceived, @IsPaid, @DatePaid, @IsOutstanding)";
-            string qryGetExpenseId = "SELECT MAX(Id) FROM GeneralExpense";
             using (SqlConnection connInsert = new SqlConnection(_connectionString))
             {
                 try
@@ -39,10 +39,10 @@ namespace ExpenseManager
                     cmdInsertExpense.Parameters.AddWithValue("@DatePaid", newGeneralExpense.DatePaid);
                     cmdInsertExpense.Parameters.AddWithValue("@IsOutstanding", newGeneralExpense.IsOutstanding);
                     intSuccess = cmdInsertExpense.ExecuteNonQuery();
-                    SqlCommand cmdGetExpenseId = new SqlCommand(qryGetExpenseId, connInsert);
+                    SqlCommand cmdGetExpenseId = new SqlCommand(_getIdentity, connInsert);
                     if (intSuccess == 1)
                     {
-                        intExpenseId = (int)cmdGetExpenseId.ExecuteScalar();
+                        intExpenseId = int.Parse(cmdGetExpenseId.ExecuteScalar().ToString());
                         // ### better error handling required
                         newGeneralExpense.Id = intExpenseId;
                         expenseManager.AddToListGeneralExpense(newGeneralExpense);

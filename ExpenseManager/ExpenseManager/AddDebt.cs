@@ -11,6 +11,7 @@ namespace ExpenseManager
     {
         private ExpenseManager expenseManager;
         private static string _connectionString = ConfigurationSettings.AppSettings["connectionString"].ToString();
+        private static string _getIdentity = "SELECT @@IDENTITY";
 
         public AddDebt(ExpenseManager inExpenseManager)
         {
@@ -24,7 +25,6 @@ namespace ExpenseManager
             int intDebtId = 0;
             string qryInsertDebt = @"INSERT INTO Debt ([ExpenseId] ,[PersonOwing] ,[AmountOutstanding] ,[IsPaid] ,[DatePaid]) 
                                     VALUES (@ExpenseId, @PersonOwing, @AmountOutstanding ,@IsPaid ,@DatePaid)";
-            string qryGetDebtId = "SELECT MAX(Id) FROM Debt";
             using (SqlConnection connInsert = new SqlConnection(_connectionString))
             {
                 try
@@ -37,10 +37,10 @@ namespace ExpenseManager
                     cmdInsertDebt.Parameters.AddWithValue("@IsPaid", newDebt.IsPaid);
                     cmdInsertDebt.Parameters.AddWithValue("@DatePaid", newDebt.DatePaid);
                     intSuccess = cmdInsertDebt.ExecuteNonQuery();
-                    SqlCommand cmdGetDebtId = new SqlCommand(qryGetDebtId, connInsert);
+                    SqlCommand cmdGetDebtId = new SqlCommand(_getIdentity, connInsert);
                     if (intSuccess == 1)
                     {
-                        intDebtId = (int)cmdGetDebtId.ExecuteScalar();
+                        intDebtId = int.Parse(cmdGetDebtId.ExecuteScalar().ToString());
                         // ### better error handling required
                         newDebt.Id = intDebtId;
                         expenseManager.AddToListDebt(newDebt);
