@@ -23,12 +23,13 @@ namespace ExpenseManager
             int intSuccess = 0;
             int intDebtId = 0;
             string qryInsertDebt = @"INSERT INTO Debt ([ExpenseId] ,[PersonOwing] ,[AmountOutstanding] ,[IsPaid] ,[DatePaid]) 
-                                    VALUES (@ExpenseId,@ PersonOwing, @AmountOutstanding ,@IsPaid ,@DatePaid)";
+                                    VALUES (@ExpenseId, @PersonOwing, @AmountOutstanding ,@IsPaid ,@DatePaid)";
             string qryGetDebtId = "SELECT MAX(Id) FROM Debt";
             using (SqlConnection connInsert = new SqlConnection(_connectionString))
             {
                 try
                 {
+                    connInsert.Open();
                     SqlCommand cmdInsertDebt = new SqlCommand(qryInsertDebt, connInsert);
                     cmdInsertDebt.Parameters.AddWithValue("@ExpenseId", newDebt.ExpenseId);
                     cmdInsertDebt.Parameters.AddWithValue("@PersonOwing", newDebt.PersonOwing);
@@ -48,6 +49,8 @@ namespace ExpenseManager
                     {
                         // ### throw an exception
                     }
+
+                    connInsert.Close();
                 }
                 catch (Exception e)
                 {

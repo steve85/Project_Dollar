@@ -1,13 +1,4 @@
-Create new classes:
-	Incoming Payment
-		- Id
-      - Description
-      - Amount
-      - ExpenseId
-      - Status
-      
-	Outgoing Payment
-      - Id
-      - Description
-      - Amount
-      - Status
+22/04/2010
+- Allow cancel from any operation by entering ! character.
+- Fix console program so that answering a specific value for a boolean will include exclude specific questions.
+- Finish the add bill code

@@ -29,5 +29,12 @@ namespace ExpenseManager
             expenseDetails.AppendFormat("Amount: {0}", this.Value);
             return expenseDetails.ToString();
         }
+
+        public string GetShortDetails()
+        {
+            StringBuilder shortDetails = new StringBuilder();
+            shortDetails.AppendFormat("{0}. {1} - ${2}", this.Id, this.Name, this.Value);
+            return shortDetails.ToString();
+        }
     }
 }
