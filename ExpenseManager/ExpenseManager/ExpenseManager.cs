@@ -18,17 +18,12 @@ namespace ExpenseManager
         
         public ExpenseManager()
         {
-            // ### Debug
-         //   Console.WriteLine("Expense Manager Initialised");
             this.LoadData();
         }
 
         #region Load Data Method
         private void LoadData()
         {
-            // ### Debug
-         //   Console.WriteLine("Loading Data...\n");
-
             // SQL Queries
             string selectExpenses = "SELECT dbo.GeneralExpense.*, dbo.Bill.* FROM GeneralExpense LEFT JOIN Bill ON GeneralExpense.Id = Bill.ExpenseId";
             string selectDebts = "SELECT dbo.Debt.* FROM dbo.Debt";
@@ -150,12 +145,12 @@ namespace ExpenseManager
 
         public void AddNewBill()
         {
-
+            AddBill addBill = new AddBill(this);
         }
 
         public void AddNewDebt()
         {
-
+            AddDebt addDebt = new AddDebt(this);
         }
         #endregion
     }

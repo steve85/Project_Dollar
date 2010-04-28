@@ -52,11 +52,13 @@
   <ItemGroup>
     <Compile Include="AddBill.cs" />
     <Compile Include="AddDebt.cs" />
+    <Compile Include="AddDebtPayment.cs" />
     <Compile Include="AddGeneralExpense.cs" />
+    <Compile Include="AmountOutstanding.cs" />
     <Compile Include="Bill.cs" />
-    <Compile Include="CancelledPayment.cs" />
+    <Compile Include="ConsoleMenu.cs" />
     <Compile Include="Debt.cs" />
-    <Compile Include="EFTPayment.cs" />
+    <Compile Include="DebtPayment.cs" />
     <Compile Include="ExpenseManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -65,8 +67,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneralExpense.cs" />
-    <Compile Include="IncomingPayment.cs" />
-    <Compile Include="OutgoingPayment.cs" />
     <Compile Include="PaymentStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

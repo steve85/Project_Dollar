@@ -32,10 +32,11 @@ namespace ExpenseManager
             // Inserts into two tables so I use a transaction to ensure integrity
             using (SqlConnection insertConn = new SqlConnection(_connectionString))
             {
-                insertConn.Open();
-                SqlTransaction sqlTransaction = insertConn.BeginTransaction();
+                SqlTransaction sqlTransaction = null;
                 try
-                {                    
+                {
+                    insertConn.Open();
+                    sqlTransaction = insertConn.BeginTransaction();
                     SqlCommand cmdInsertExpense = new SqlCommand(qryInsertExpense, insertConn);
                     cmdInsertExpense.Parameters.AddWithValue("@Name", newBill.Name);
                     cmdInsertExpense.Parameters.AddWithValue("@Description", newBill.Description);
@@ -74,6 +75,7 @@ namespace ExpenseManager
                     }
                     sqlTransaction.Commit();
                     expenseManager.AddToListBill(newBill);
+                    insertConn.Close();
                 }
                 catch (Exception e)
                 {
@@ -87,10 +89,6 @@ namespace ExpenseManager
 
                     // Rollback SQL transaction
                     sqlTransaction.Rollback();
-                }
-                finally
-                {
-                    insertConn.Close();
                 }
             }
         }
